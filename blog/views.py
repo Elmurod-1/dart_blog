@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Article, Category
 
 
@@ -12,5 +12,10 @@ def index(request):
     return render(request, template_name='blog/index.html', context=context)
 
 def single(request, slug):
-    article = Article.objects.get(slug=slug)
-    return render(request, 'blog/single.html', context={'article': article})
+    article = get_object_or_404(Article, slug=slug)
+    categories = Category.objects.all()
+    context = {
+        'article': article,
+        'categories': categories,
+    }
+    return render(request, 'blog/single.html', context=context)
