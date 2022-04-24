@@ -37,7 +37,7 @@
                             <div class="col-md-3">
                                 <div class="single-post">
                                     <img src="{{ article.images.url }}" alt="">
-                                    <h3><a href="#">{{ article.title.title }}</a></h3>
+                                    <h3><a href="{% url 'single' article.slug %}">{{ article.title.title }}</a></h3>
                                     <h4><span>Posted By: <span class="author-name">{{ article.author }}</span></span>
                                     </h4>
                                     <p>{{ article.content|truncatewords:15}}</p>
@@ -52,15 +52,7 @@
                 </div>
             </div>
             <div class="pegination">
-                <!--
-                <ul>
-                    <li><i class="fa fa-angle-left" aria-hidden="true"></i></li>
-                    <li class="active">1</li>
-                    <li>2</li>
-                    <li>3</li>
-                    <li><i class="fa fa-angle-right" aria-hidden="true"></i></li>
-                </ul>
--->
+
 
                 <div class="nav-links">
                     <span class="page-numbers current">1</span>
