@@ -1,19 +1,23 @@
 from pathlib import Path
 
+import whitenoise.middleware
+from environs import Env
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = Env()
+env.read_env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-!fn&_j5m$p0o_bt8eo#%wr$*xum9w=5zjj2y=xu(xpslfw_zp%'
-
+SECRET_KEY = env.str('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DEBUG', default=False)
 
-ALLOWED_HOSTS = ['myblog123456.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -24,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'blog',
 ]
@@ -31,6 +36,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -63,11 +69,15 @@ WSGI_APPLICATION = 'djblog.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': env.dj_db_url("DATABASE_URL")
 }
+#
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 # Password validation
@@ -104,11 +114,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'static'
-# STATICFILES_DIRS = [
-#     BASE_DIR / "static/",
-# ]
+STATICFILES_DIRS = [
+    BASE_DIR / "static/",
+]
+
 
 
 MEDIA_URL = '/media/'
