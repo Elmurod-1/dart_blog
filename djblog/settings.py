@@ -1,21 +1,21 @@
 from pathlib import Path
 
 import whitenoise.middleware
-from environs import Env
+# from environs import Env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-env = Env()
-env.read_env()
+# env = Env()
+# env.read_env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env.str('SECRET_KEY')
+SECRET_KEY = "django-insecure-!fn&_j5m$p0o_bt8eo#%wr$*xum9w=5zjj2y=xu(xpslfw_zp%"
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool('DEBUG', default=False)
+DEBUG = False#env.bool('DEBUG', default=False)
 
 ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1']
 
@@ -68,16 +68,16 @@ WSGI_APPLICATION = 'djblog.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-    'default': env.dj_db_url("DATABASE_URL")
-}
-#
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
+#     'default': env.dj_db_url("DATABASE_URL")
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 
 # Password validation
