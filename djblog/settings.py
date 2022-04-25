@@ -17,7 +17,7 @@ SECRET_KEY = "django-insecure-!fn&_j5m$p0o_bt8eo#%wr$*xum9w=5zjj2y=xu(xpslfw_zp%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False#env.bool('DEBUG', default=False)
 
-ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['mydartblog.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
